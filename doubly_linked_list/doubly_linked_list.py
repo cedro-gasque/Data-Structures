@@ -134,7 +134,6 @@ class DoublyLinkedList:
     def get_max(self):
         current1 = self.head
         current2 = self.tail
-        print(current1, current2)
         max_value = max(current1.value, current2.value)
         while True:
             max_value = max(max_value, current1.value, current2.value)
