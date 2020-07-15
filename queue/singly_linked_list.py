@@ -1,5 +1,5 @@
 class Node:
-	    def __init__(self, value):
+    def __init__(self, value):
         self.value = value
         self.next = None
 
@@ -64,12 +64,12 @@ class LinkedList:
         if self.head is None and self.tail is None:
             return
 
-		# handle a single-element linked list
-		if self.head is self.tail:
-			value = self.head.get_value()
-			self.head = None
-			self.tail = None
-			return value
+        # handle a single-element linked list
+        if self.head is self.tail:
+            value = self.head.get_value()
+            self.head = None
+            self.tail = None
+            return value
 
         # if we have a non-empty linked list
         # we have to start at the head and move down the linked list
@@ -84,8 +84,8 @@ class LinkedList:
         val = self.tail.get_value()
         # move self.tail to the Node right before
         self.tail = current
-		# remove new tail's reference to the old tail
-		self.tail.next = None
+        # remove new tail's reference to the old tail
+        self.tail.next = None
         return val
 
     def contains(self, value):
