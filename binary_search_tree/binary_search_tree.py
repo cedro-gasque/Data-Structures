@@ -10,6 +10,7 @@ This part of the project comprises two days:
    on the BSTNode class.
 """
 from queue import Queue
+import dis
 
 class BSTNode:
     def __init__(self, value):
@@ -18,47 +19,43 @@ class BSTNode:
 
     # Insert the given value into the tree
     def insert(self, value):
-        side = "left" * (value < self.value) + "right" * (value >= self.value)
-        node = getattr(self, side, None)
-        not side is "" and (node is None
-        and (setattr(self, side, BSTNode(value)) or True)
-        or node.insert(value))
+        side = "left" if value < self.value else "right"
+        node = getattr(self, side)
+        return node is None and not setattr(self, side, BSTNode(value)) or node.insert(value)
 
     # Return True if the tree contains the value
     # False if it does not
     def contains(self, target):
-        side = "left" * (target < self.value) + "right" * (target > self.value)
-        node = getattr(self, side, None)
+        side = "left" if target < self.value else "right"
+        node = getattr(self, side)
         return self.value == target or (
         node is not None and (node.value == target or node.contains(target)))
 
     # Return the maximum value found in the tree
     def get_max(self):
-        if self.right is None:
-            return self.value
-        return self.right.get_max()
+        return self.value if self.right is None else self.right.get_max()
 
     # Call the function `fn` on the value of each node
     def for_each(self, fn):
         fn(self.value)
-        (not self.left is None) and self.left.for_each(fn)
-        (not self.right is None) and self.right.for_each(fn)
+        self.left is None or self.left.for_each(fn)
+        self.right is None or self.right.for_each(fn)
 
     # Part 2 -----------------------
 
     # Print all the values in order from low to high
     # Hint:  Use a recursive, depth first traversal
     def in_order_print(self, node):
-        (not node.left is None) and node.in_order_print(node.left)
+        node.left is None or node.in_order_print(node.left)
         print(node.value)
-        (not node.right is None) and node.in_order_print(node.right)
+        node.right is None or node.in_order_print(node.right)
 
     # Print the value of every node, starting with the given node,
     # in an iterative breadth first traversal
     def bft_print(self, node):
         print(node.value)
-        (not self.left is None) and self.left.bft_print(self.left)
-        (not self.right is None) and self.right.bft_print(self.right)
+        self.left is None or self.left.bft_print(self.left)
+        self.right is None or self.right.bft_print(self.right)
 
     # Print the value of every node, starting with the given node,
     # in an iterative depth first traversal
@@ -71,13 +68,13 @@ class BSTNode:
     # Print Pre-order recursive DFT
     def pre_order_dft(self, node):
         print(node.value)
-        (not self.right is None) and self.right.bft_print(self.right)
-        (not self.left is None) and self.left.bft_print(self.left)
+        self.right is None or self.right.bft_print(self.right)
+        self.left is None or self.left.bft_print(self.left)
 
     # Print Post-order recursive DFT
     def post_order_dft(self, node):
-        (not self.right is None) and self.right.bft_print(self.right)
-        (not self.left is None) and self.left.bft_print(self.left)
+        self.right is None or self.right.bft_print(self.right)
+        self.left is None or self.left.bft_print(self.left)
         print(node.value)
 
 if __name__ == "__main__":
@@ -90,4 +87,4 @@ if __name__ == "__main__":
     bst.insert(4)
     bst.insert(2)
 
-    print(bst.bft_print(bst))
+    dis.dis(bst.insert)
