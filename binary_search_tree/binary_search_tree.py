@@ -39,7 +39,7 @@ class BSTNode:
     def for_each(self, fn):
         fn(self.value)
         self.left is None or self.left.for_each(fn)
-        self.right is None or self.right.for_each(fn)
+        return self.right is None or self.right.for_each(fn)
 
     # Part 2 -----------------------
 
@@ -48,14 +48,14 @@ class BSTNode:
     def in_order_print(self, node):
         node.left is None or node.in_order_print(node.left)
         print(node.value)
-        node.right is None or node.in_order_print(node.right)
+        return node.right is None or node.in_order_print(node.right)
 
     # Print the value of every node, starting with the given node,
     # in an iterative breadth first traversal
     def bft_print(self, node):
         print(node.value)
         self.left is None or self.left.bft_print(self.left)
-        self.right is None or self.right.bft_print(self.right)
+        return self.right is None or self.right.bft_print(self.right)
 
     # Print the value of every node, starting with the given node,
     # in an iterative depth first traversal
@@ -68,14 +68,14 @@ class BSTNode:
     # Print Pre-order recursive DFT
     def pre_order_dft(self, node):
         print(node.value)
-        self.right is None or self.right.bft_print(self.right)
         self.left is None or self.left.bft_print(self.left)
+        return self.right is None or self.right.bft_print(self.right)
 
     # Print Post-order recursive DFT
     def post_order_dft(self, node):
-        self.right is None or self.right.bft_print(self.right)
         self.left is None or self.left.bft_print(self.left)
-        print(node.value)
+        self.right is None or self.right.bft_print(self.right)
+        return print(node.value)
 
 if __name__ == "__main__":
     bst = BSTNode(1)
