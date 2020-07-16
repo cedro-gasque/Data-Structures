@@ -20,19 +20,17 @@ class BSTNode:
     def insert(self, value):
         side = "left" * (value < self.value) + "right" * (value >= self.value)
         node = getattr(self, side, None)
-        if side is "":
-            pass
-        elif node is None:
-            setattr(self, side, BSTNode(value))
-        else:
-            getattr(node, "insert")(value)
+        not side is "" and (node is None
+        and (setattr(self, side, BSTNode(value)) or True)
+        or node.insert(value))
 
     # Return True if the tree contains the value
     # False if it does not
     def contains(self, target):
         side = "left" * (target < self.value) + "right" * (target > self.value)
         node = getattr(self, side, None)
-        return self.value == target or (node is not None and (node.value == target or node.contains(target)))
+        return self.value == target or (
+        node is not None and (node.value == target or node.contains(target)))
 
     # Return the maximum value found in the tree
     def get_max(self):
