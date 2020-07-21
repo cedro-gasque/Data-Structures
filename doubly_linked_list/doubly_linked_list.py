@@ -23,7 +23,7 @@ the list's head and tail nodes.
 class DoublyLinkedList:
     def __init__(self, node=None):
         self.head = self.tail = node
-        self.length = 1 if node is not None else 0
+        self.length = 0 + (node is not None)
 
     def __len__(self):
         return self.length
